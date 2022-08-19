@@ -29,13 +29,16 @@ stages:
     pool: myAgentPool
     steps:    
     - script: |
+        python -m venv antenv
+        source antenv/bin/activate
         python3.7 -m pip install --upgrade pip
         python3.7 -m pip install setup
         python3.7 -m pip install -r requirements.txt
       workingDirectory: $(projectRoot)
 
     - script: |
-        export PATH=$HOME/.local/bin:$PATH
+        python -m venv antenv
+        source antenv/bin/activate
         make install
         make lint
       workingDirectory: $(projectRoot)
